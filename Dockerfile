@@ -37,6 +37,8 @@ RUN mkdir -p /var/testlink/logs /var/testlink/upload_area
 COPY config/config_db.inc.php /var/www/html/testlink
 ADD https://raw.githubusercontent.com/techknowlogick/testlink-docker/master/custom_config.inc.php /var/www/html/testlink/custom_config.inc.php
 
+RUN rm -rf /var/www/html/testlink/install
+
 RUN chmod 777 -R /var/www/html/testlink && \
     chmod 777 -R /var/testlink/logs && \
     chmod 777 -R /var/testlink/upload_area
