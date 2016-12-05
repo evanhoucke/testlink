@@ -34,7 +34,7 @@ RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 RUN mkdir -p /var/testlink/logs /var/testlink/upload_area
 
 COPY config/config_db.inc.php /var/www/html
-COPY https://github.com/techknowlogick/testlink-docker/blob/master/custom_config.inc.php /var/www/html
+ADD https://github.com/techknowlogick/testlink-docker/blob/master/custom_config.inc.php /var/www/html/custom_config.inc.php
 
 RUN chmod 777 -R /var/www/html && \
     chmod 777 -R /var/testlink/logs && \
