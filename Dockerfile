@@ -19,7 +19,8 @@ ENV PATCH=3
 RUN wget -q http://sourceforge.net/projects/testlink/files/TestLink%20${MAJOR}.${MINOR}/TestLink%20${MAJOR}.${MINOR}.${PATCH}/testlink-${MAJOR}.${MINOR}.${PATCH}.tar.gz/download -O testlink-${MAJOR}.${MINOR}.${PATCH}.tar.gz &&\
     tar zxvf testlink-${MAJOR}.${MINOR}.${PATCH}.tar.gz && \
     rm -rf /var/www/html && \
-    mv testlink-${MAJOR}.${MINOR}.${PATCH} /var/www/html && \
+    mkdir /var/www/html && \
+    mv testlink-${MAJOR}.${MINOR}.${PATCH} /var/www/html/testlink && \
     rm testlink-${MAJOR}.${MINOR}.${PATCH}.tar.gz
 
 ENV APACHE_RUN_USER www-data
@@ -33,10 +34,10 @@ RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 
 RUN mkdir -p /var/testlink/logs /var/testlink/upload_area
 
-COPY config/config_db.inc.php /var/www/html
-ADD https://raw.githubusercontent.com/techknowlogick/testlink-docker/master/custom_config.inc.php /var/www/html/custom_config.inc.php
+COPY config/config_db.inc.php /var/www/html/testlink
+ADD https://raw.githubusercontent.com/techknowlogick/testlink-docker/master/custom_config.inc.php /var/www/html/testlink/custom_config.inc.php
 
-RUN chmod 777 -R /var/www/html && \
+RUN chmod 777 -R /var/www/html/testlink && \
     chmod 777 -R /var/testlink/logs && \
     chmod 777 -R /var/testlink/upload_area
 
