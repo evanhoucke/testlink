@@ -6,9 +6,6 @@ ENV MAJOR=1
 ENV MINOR=9
 ENV PATCH=3
 
-ENV http_proxy="http://proxy.a-sis.division-savoye.ad:3129"
-ENV https_proxy="http://proxy.a-sis.division-savoye.ad:3129"
-
 RUN apt-get update -y && \
     apt-get install -y apache2 php5 wget php5-mysql
 
