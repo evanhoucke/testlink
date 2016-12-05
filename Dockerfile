@@ -3,7 +3,7 @@ FROM debian
 MAINTAINER Emmanuel VANHOUCKE
 
 RUN apt-get update -y && \
-    apt-get install -y apache2 php5 wget php5-mysql
+    apt-get install -y apache2 php5 wget php5-mysql php5-ldap php5-gd php5-pgsql
 
 RUN echo "max_execution_time=3000\n" >> /etc/php5/apache2/php.ini && \
     echo "post_max_size = 200M\n" >> /etc/php5/apache2/php.ini && \
