@@ -3,7 +3,7 @@ FROM debian
 MAINTAINER Emmanuel VANHOUCKE
 
 RUN apt-get update -y && \
-    apt-get install -y apache2 php5 wget php5-mysql php5-ldap php5-gd php5-pgsql
+    apt-get install -y apache2 php5 wget php5-mysql php5-ldap php5-gd php5-pgsql supervisor
 
 RUN echo "max_execution_time=3000\n" >> /etc/php5/apache2/php.ini && \
     echo "post_max_size = 200M\n" >> /etc/php5/apache2/php.ini && \
@@ -37,6 +37,10 @@ RUN mkdir -p /var/testlink/logs /var/testlink/upload_area
 COPY config/config_db.inc.php /var/www/html/testlink
 ADD https://raw.githubusercontent.com/techknowlogick/testlink-docker/master/custom_config.inc.php /var/www/html/testlink/custom_config.inc.php
 
+ADD init.sh /usr/bin/
+RUN chmod +x /usr/bin/init.sh
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN rm -rf /var/www/html/testlink/install
 
 RUN chmod 777 -R /var/www/html/testlink && \
@@ -45,5 +49,4 @@ RUN chmod 777 -R /var/www/html/testlink && \
 
 EXPOSE 80/tcp
 
-CMD ["/usr/sbin/apache2","-D", "FOREGROUND"]
-
+CMD ["/usr/bin/supervisord"]
